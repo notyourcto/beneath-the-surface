@@ -1,44 +1,36 @@
-right_key = keyboard_check (vk_right);
-left_key = keyboard_check (vk_left);
-up_key = keyboard_check(vk_up);
-down_key = keyboard_check(vk_down);
+var _right = keyboard_check(vk_right) || keyboard_check(ord("D"));
+var _left  = keyboard_check(vk_left)  || keyboard_check(ord("A"));
+var _up    = keyboard_check(vk_up)    || keyboard_check(ord("W"));
+var _down  = keyboard_check(vk_down)  || keyboard_check(ord("S"));
 
-// get xspd and yspd
-xspd = (right_key - left_key) * move_spd;
-yspd = (down_key - up_key) * move_spd;
+xspd = _right - _left;
+yspd = _down - _up;
 
-//pause
-
-// set sprite
-mask_index = sprite[DOWN];
-if yspd == 0
+if (xspd != 0 || yspd != 0)
 {
-   if xspd > 0{face = RIGHT};
-   if xspd < 0{face= LEFT};
+    var _len = point_distance(0,0,xspd,yspd);
+    xspd /= _len;
+    yspd /= _len;
+
+
+    if (abs(xspd) > abs(yspd))
+    {
+        face = (xspd > 0) ? RIGHT : LEFT;
+    }
+    else
+    {
+        face = (yspd > 0) ? DOWN : UP;
+    }
+
+    sprite_index = sprite[face];
+    image_speed = 0.2;
 }
-if xspd > 0 && face == LEFT {face = RIGHT};
-if xspd < 0 && face == RIGHT { face = LEFT }
-
-if xspd == 0 
-   {
-   if yspd > 0 {face = DOWN};
-   if yspd < 0 {face = UP};
-   }
-   if yspd > 0 && face == UP { face = DOWN}
-   if yspd < 0 && face == DOWN { face = UP}
-sprite_index = sprite[face];
-
-//collision
-if place_meeting(x + xspd, y, obj_wall) == true 
+else
 {
-	xspd = 0;
-}
-if place_meeting( x, y+yspd, obj_wall) ==true 
-{
-	yspd = 0;
+    image_index = 0;
+    image_speed = 0;
 }
 
-//move the player
-x += xspd;
-y += yspd;
-
+// Apply movement
+x += xspd * move_spd;
+y += yspd * move_spd;
