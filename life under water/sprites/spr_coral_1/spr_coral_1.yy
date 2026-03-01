@@ -1,7 +1,7 @@
 {
   "$GMSprite":"v2",
   "%Name":"spr_coral_1",
-  "bboxMode":0,
+  "bboxMode":2,
   "bbox_bottom":93,
   "bbox_left":13,
   "bbox_right":102,
