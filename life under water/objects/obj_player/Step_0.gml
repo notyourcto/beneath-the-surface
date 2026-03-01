@@ -34,3 +34,4 @@ else
 // Apply movement
 x += xspd * move_spd;
 y += yspd * move_spd;
+

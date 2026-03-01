@@ -15,3 +15,9 @@ sprite[DOWN] = spr_player_down;
 
 face = DOWN;
 image_speed = 0.4;
+
+max_health = 100;
+health = max_health;
+
+invincible_timer = 0;
+invincible_time = 60;
